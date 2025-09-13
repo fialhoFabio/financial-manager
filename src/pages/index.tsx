@@ -22,7 +22,7 @@ const getData = async () => {
   const data = {
     title: 'Waku',
     headline: 'Waku',
-    body: 'Hello world! Teste :)',
+    body: 'Hello world! Teste :(',
   };
 
   return data;
