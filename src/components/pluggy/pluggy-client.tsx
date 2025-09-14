@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { usePluggyClient, usePluggyConnect } from '../utils/pluggy';
+
+import { usePluggyClient, usePluggyConnect } from '@/utils/pluggy';
 
 interface PluggyClientProps {
   apiKey: string;

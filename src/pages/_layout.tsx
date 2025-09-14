@@ -1,9 +1,10 @@
-import '../styles.css';
-
 import type { ReactNode } from 'react';
 
-import { Header } from '../components/header';
-import { Footer } from '../components/footer';
+import { AuthSubscription } from '@/components/auth/auth-subscription';
+import { Footer } from '@/components/footer';
+import { Header } from '@/components/header';
+
+import '../styles.css';
 
 type RootLayoutProps = { children: ReactNode };
 
@@ -12,6 +13,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <div className="font-['Nunito']">
+      <AuthSubscription />
       <meta name="description" content={data.description} />
       <link rel="icon" type="image/png" href={data.icon} />
       <Header />

@@ -1,6 +1,8 @@
 import { getEnv } from 'waku';
+
+import { fetchApiKey } from '@/utils/pluggy.js';
+
 import { PluggyClient } from './pluggy-client.js';
-import { fetchApiKey } from '../utils/pluggy.js';
 
 export const PluggyConnector = async () => {
   const apiKey = await fetchApiKey();

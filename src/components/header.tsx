@@ -1,5 +1,6 @@
 import { Link } from 'waku';
-import Avatar from './avatar';
+
+import Avatar from './avatar/avatar';
 
 export const Header = () => {
   return (
