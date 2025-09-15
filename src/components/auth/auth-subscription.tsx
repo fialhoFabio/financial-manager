@@ -4,14 +4,14 @@ import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 
 import { logoutAtom, sessionAtom } from '@/utils/jotai';
-import { clientSupabase } from '@/utils/supabase-client';
+import { supabaseClient } from '@/utils/supabase';
 
 export const AuthSubscription = () => {
   const [, setSession] = useAtom(sessionAtom);
   const [, logout] = useAtom(logoutAtom);
 
   useEffect(() => {
-    const { data: authListener } = clientSupabase.auth.onAuthStateChange((event, session) => {
+    const { data: authListener } = supabaseClient.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT') {
         console.log('User signed out');
         logout();

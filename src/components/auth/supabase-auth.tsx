@@ -1,11 +1,11 @@
 'use client';
 
+import type { Provider } from '@supabase/supabase-js';
 import { useRouter } from 'waku';
 
 import { TAuthOption } from '@/types/auth.types';
-import { clientSupabase } from '@/utils/supabase-client';
+import { supabaseClient } from '@/utils/supabase';
 
-import type { Provider } from '@supabase/supabase-js';
 
 export const SupabaseAuth = () => {
   const { push } = useRouter();
@@ -17,7 +17,7 @@ export const SupabaseAuth = () => {
   ];
 
   const handleOAuth = async (provider: Provider) => {
-    const { error } = await clientSupabase.auth.signInWithOAuth({ provider });
+    const { error } = await supabaseClient.auth.signInWithOAuth({ provider });
     if (error) {
       alert('Error during OAuth sign-in: ' + error.message);
     }

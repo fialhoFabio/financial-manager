@@ -1,11 +1,10 @@
-import { getEnv } from 'waku';
+import { fetchApiKey, fetchConnectToken } from '@/utils/pluggy.js';
 
-import { fetchApiKey } from '@/utils/pluggy.js';
-
-import { PluggyClient } from './pluggy-client.js';
+import { PluggyModal } from './pluggy-modal.js';
 
 export const PluggyConnector = async () => {
   const apiKey = await fetchApiKey();
+  const connectToken = await fetchConnectToken(apiKey);
 
-  return <PluggyClient apiKey={apiKey} includeSandbox={!!getEnv('PLUGGY_INCLUDE_SANDBOX')} />;
+  return <PluggyModal connectToken={connectToken} />;
 };

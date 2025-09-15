@@ -1,7 +1,7 @@
 import { Session, User } from '@supabase/supabase-js';
 import { atom } from 'jotai';
 
-import { logoutSupabase } from './supabase-client';
+import { logoutSupabase } from './supabase';
 // import { atomWithImmer } from 'jotai-immer';
 
 export const investmentsAtom = atom<string[]>([]);
@@ -9,6 +9,12 @@ export const itemsAtom = atom<string[]>([]);
 export const pushItemAtom = atom(null, (get, set, newItem: string) => {
   const currentItems = get(itemsAtom);
   set(itemsAtom, [...currentItems, newItem]);
+});
+
+export const isPluggyModalOpenAtom = atom(false);
+export const togglePluggyModalAtom = atom(null, (get, set) => {
+  const isOpen = get(isPluggyModalOpenAtom);
+  set(isPluggyModalOpenAtom, !isOpen);
 });
 
 export const sessionAtom = atom<Session | null>(null);

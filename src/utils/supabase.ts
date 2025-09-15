@@ -11,7 +11,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
-export const clientSupabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+export const supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
 export const logoutSupabase = async () => {
   const session = await getSessionData();
@@ -19,7 +19,7 @@ export const logoutSupabase = async () => {
     console.log('No active session found');
     return;
   }
-  const { error } = await clientSupabase.auth.signOut();
+  const { error } = await supabaseClient.auth.signOut();
   if (error) {
     console.error('Error signing out:', error.message);
   } else {
@@ -28,7 +28,7 @@ export const logoutSupabase = async () => {
 };
 
 export const getSessionData = async () => {
-  const { data, error } = await clientSupabase.auth.getSession();
+  const { data, error } = await supabaseClient.auth.getSession();
   if (error) {
     console.error('Error fetching session:', error.message);
     return null;
