@@ -1,10 +1,13 @@
-import { fetchApiKey, fetchConnectToken } from '@/utils/pluggy.js';
+import orcProvidePluggyConnectionToken from '@/utils/orquestration/providePluggyConnectionToken.js';
 
 import { PluggyModal } from './pluggy-modal.js';
 
 export const PluggyConnector = async () => {
-  const apiKey = await fetchApiKey();
-  const connectToken = await fetchConnectToken(apiKey);
+  const accessToken = await orcProvidePluggyConnectionToken();
 
-  return <PluggyModal connectToken={connectToken} />;
+  if (!accessToken) {
+    return <div>Error obtaining Pluggy connection token.</div>;
+  }
+
+  return <PluggyModal connectToken={accessToken} />;
 };

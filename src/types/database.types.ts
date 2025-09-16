@@ -46,6 +46,149 @@ export type Database = {
       [_ in never]: never
     }
   }
+  secrets: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+  vault: {
+    Tables: {
+      secrets: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          key_id: string | null
+          name: string | null
+          nonce: string | null
+          secret: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          key_id?: string | null
+          name?: string | null
+          nonce?: string | null
+          secret: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          key_id?: string | null
+          name?: string | null
+          nonce?: string | null
+          secret?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+    }
+    Views: {
+      decrypted_secrets: {
+        Row: {
+          created_at: string | null
+          decrypted_secret: string | null
+          description: string | null
+          id: string | null
+          key_id: string | null
+          name: string | null
+          nonce: string | null
+          secret: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          decrypted_secret?: never
+          description?: string | null
+          id?: string | null
+          key_id?: string | null
+          name?: string | null
+          nonce?: string | null
+          secret?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          decrypted_secret?: never
+          description?: string | null
+          id?: string | null
+          key_id?: string | null
+          name?: string | null
+          nonce?: string | null
+          secret?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+    }
+    Functions: {
+      _crypto_aead_det_decrypt: {
+        Args: {
+          additional: string
+          context?: string
+          key_id: number
+          message: string
+          nonce?: string
+        }
+        Returns: string
+      }
+      _crypto_aead_det_encrypt: {
+        Args: {
+          additional: string
+          context?: string
+          key_id: number
+          message: string
+          nonce?: string
+        }
+        Returns: string
+      }
+      _crypto_aead_det_noncegen: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      create_secret: {
+        Args: {
+          new_description?: string
+          new_key_id?: string
+          new_name?: string
+          new_secret: string
+        }
+        Returns: string
+      }
+      update_secret: {
+        Args: {
+          new_description?: string
+          new_key_id?: string
+          new_name?: string
+          new_secret?: string
+          secret_id: string
+        }
+        Returns: undefined
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
 }
 
 type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
@@ -167,6 +310,12 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
+    Enums: {},
+  },
+  secrets: {
+    Enums: {},
+  },
+  vault: {
     Enums: {},
   },
 } as const

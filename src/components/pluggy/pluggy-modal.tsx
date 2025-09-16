@@ -17,7 +17,7 @@ export const PluggyModal = ({connectToken}: {connectToken: string}) => {
     setIsPluggyModalOpen(false);
   };
 
-  const handleSuccess = (data: any) => {
+  const handleSuccess = () => {
     setIsPluggyModalOpen(false);
   };
 

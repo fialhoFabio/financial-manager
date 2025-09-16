@@ -10,8 +10,9 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "lint:check": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
-    "supabase:generate": "supabase gen types typescript --project-id xqazsrfpvafrfmreanam > src/types/database.types.ts",
-    "supabase:login": "supabase login"
+    "supabase:generate": "supabase gen types typescript --project-id xqazsrfpvafrfmreanam --schema public,secrets,vault > src/types/database.types.ts",
+    "supabase:login": "supabase login",
+    "openapi:generate": "npx openapi-typescript ./src/types/pluggy-openapi.yaml -o ./src/types/pluggy-fetch.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
@@ -36,9 +37,10 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "openapi-typescript": "^7.9.1",
     "supabase": "^2.40.7",
     "tailwindcss": "4.1.13",
-    "typescript": "5.9.2",
+    "typescript": "^5.9.2",
     "typescript-eslint": "^8.43.0",
     "vite-tsconfig-paths": "^5.1.4"
   }

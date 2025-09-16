@@ -1,7 +1,8 @@
 'use client';
 
-import { useAtom } from "jotai";
-import { togglePluggyModalAtom } from "@/utils/jotai";
+import { useAtom } from 'jotai';
+
+import { togglePluggyModalAtom } from '@/utils/jotai';
 
 export const PluggyButtonModal = () => {
   const [,togglePluggyModal] = useAtom(togglePluggyModalAtom);

@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 
 import { logoutAtom, sessionAtom } from '@/utils/jotai';
-import { supabaseClient } from '@/utils/supabase';
+import { supabaseClient } from '@/utils/supabase-client';
 
 export const AuthSubscription = () => {
   const [, setSession] = useAtom(sessionAtom);

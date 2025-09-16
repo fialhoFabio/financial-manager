@@ -1,7 +1,7 @@
 import { Link } from 'waku';
 
-import { PluggyConnector } from '@/components/pluggy/pluggy-connector';
 import { PluggyButtonModal } from '@/components/pluggy/pluggy-button-modal';
+import { PluggyConnector } from '@/components/pluggy/pluggy-connector';
 
 export default async function HomePage() {
   const data = await getData();

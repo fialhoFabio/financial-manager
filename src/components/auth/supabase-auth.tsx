@@ -4,7 +4,7 @@ import type { Provider } from '@supabase/supabase-js';
 import { useRouter } from 'waku';
 
 import { TAuthOption } from '@/types/auth.types';
-import { supabaseClient } from '@/utils/supabase';
+import { supabaseClient } from '@/utils/supabase-client';
 
 
 export const SupabaseAuth = () => {
