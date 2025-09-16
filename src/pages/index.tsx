@@ -1,24 +1,15 @@
 import { Link } from 'waku';
 
-import { PluggyButtonModal } from '@/components/pluggy/pluggy-button-modal';
-import { PluggyConnector } from '@/components/pluggy/pluggy-connector';
-
 export default async function HomePage() {
   const data = await getData();
 
   return (
     <div>
-      <PluggyConnector />
-      <PluggyButtonModal />
       <title>{data.title}</title>
       <h1 className="text-4xl font-bold tracking-tight">{data.headline}</h1>
       <p>{data.body}</p>
-      <Link to="/auth" className="mt-4 inline-block underline">
+      <Link to="/auth" className="mt-4 inline-block underline text-xl">
         Auth page
-      </Link>
-      <br />
-      <Link to="/about" className="mt-4 inline-block underline">
-        About page
       </Link>
     </div>
   );

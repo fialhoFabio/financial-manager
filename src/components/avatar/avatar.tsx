@@ -3,7 +3,7 @@
 import { useAtom } from 'jotai';
 import { useState } from 'react';
 
-import { sessionAtom } from '@/utils/jotai';
+import { sessionAtom } from '@/utils/jotai/jotai';
 
 import { Dropdown } from './dropdown';
 

@@ -4,7 +4,7 @@ import type { Provider } from '@supabase/supabase-js';
 import { useRouter } from 'waku';
 
 import { TAuthOption } from '@/types/auth.types';
-import { supabaseClient } from '@/utils/supabase-client';
+import { supabaseClient } from '@/utils/supabase/supabase-client';
 
 
 export const SupabaseAuth = () => {
@@ -17,7 +17,7 @@ export const SupabaseAuth = () => {
   ];
 
   const handleOAuth = async (provider: Provider) => {
-    const redirectTo = `${window.location.origin}/auth`;
+    const redirectTo = `${window.location.origin}/open-finance`;
     const { error } = await supabaseClient.auth.signInWithOAuth({ 
       provider,
       options: {

@@ -2,8 +2,8 @@
 
 import 'server-only';
 
-import { fetchPluggyAuth } from '../pluggy-SERVER';
-import { createSecretOnSupabase, updatePluggyApiKey } from '../supabase-SERVER';
+import { fetchPluggyAuth } from '../pluggy/pluggy-SERVER';
+import { createSecretOnSupabase, updatePluggyApiKey } from '../supabase/vault-SERVER';
 
 export default async function orcSyncPluggyApiKeyVault(uuid?: string | null): Promise<void> {
   const response = await fetchPluggyAuth();

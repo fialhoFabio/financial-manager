@@ -1,8 +1,8 @@
 'use server';
 
 import 'server-only';
-import { fetchPluggyConnectToken } from '../pluggy-SERVER';
-import { getSecretOnSupabase } from '../supabase-SERVER';
+import { fetchPluggyConnectToken } from '../pluggy/pluggy-SERVER';
+import { getSecretOnSupabase } from '../supabase/vault-SERVER';
 
 import orcSyncPluggyApiKeyVault from './syncPluggyApiKeyVault';
 
