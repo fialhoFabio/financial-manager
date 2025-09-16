@@ -6,7 +6,7 @@ import { PluggyConnectProps } from 'react-pluggy-connect';
 
 import { isPluggyModalOpenAtom } from '@/utils/jotai';
 
-export const PluggyModal = ({connectToken}: {connectToken: string}) => {
+export const PluggyModal = ({ connectToken }: { connectToken: string }) => {
   // Importando dinamicamente o componente para evitar problemas com SSR (window undefined)
   const PluggyConnectComponent = useDynamicImport<React.FC<PluggyConnectProps>>(() => import('react-pluggy-connect').then(mod => mod.PluggyConnect));
   const [isPluggyModalOpen, setIsPluggyModalOpen] = useAtom(isPluggyModalOpenAtom);
