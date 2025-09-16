@@ -65,11 +65,11 @@ export async function getSecretOnSupabase(name: string) {
       .limit(1)
       .single();
 
-      if (response.error) {
-        console.error('Error fetching secret from Supabase:', response.error);
-      }
+    if (response.error) {
+      console.error('Error fetching secret from Supabase:', response.error);
+    }
 
-      return response.data;
+    return response.data;
   });
 }
 
