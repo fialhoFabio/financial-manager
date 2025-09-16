@@ -8,7 +8,7 @@ export async function fetchPluggy<R extends TPaths, M extends MethodOf<R>>(
 ): Promise<TPluggyResponse<R, M>> {
   // Aqui você pode usar ofetch ou qualquer coisa
   try {
-    const response = await fetch(getEnv('PLUGGY_API_URL') + route, {
+    const response = await fetch(getEnv('WAKU_PUBLIC_PLUGGY_API_URL') + route, {
       method: options.method?.toUpperCase(),
       headers: {
         'Content-Type': 'application/json',
