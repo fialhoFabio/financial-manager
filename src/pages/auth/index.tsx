@@ -5,6 +5,7 @@ export default async function AuthPage() {
     <div>
       <title>Login</title>
       <h1 className="text-4xl font-bold tracking-tight">Login</h1>
+      <br/>
       <SupabaseAuth />
     </div>
   );

@@ -17,7 +17,7 @@ export const SupabaseAuth = () => {
   ];
 
   const handleOAuth = async (provider: Provider) => {
-    const redirectTo = `${window.location.origin}/auth`;
+    const redirectTo = `${window.location.origin}/open-finance`;
     const { error } = await supabaseClient.auth.signInWithOAuth({ 
       provider,
       options: {
