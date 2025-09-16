@@ -17,7 +17,13 @@ export const SupabaseAuth = () => {
   ];
 
   const handleOAuth = async (provider: Provider) => {
-    const { error } = await supabaseClient.auth.signInWithOAuth({ provider });
+    const redirectTo = `${window.location.origin}/auth`;
+    const { error } = await supabaseClient.auth.signInWithOAuth({ 
+      provider,
+      options: {
+        redirectTo
+      }
+    });
     if (error) {
       alert('Error during OAuth sign-in: ' + error.message);
     }
