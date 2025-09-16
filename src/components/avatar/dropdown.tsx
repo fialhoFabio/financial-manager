@@ -2,7 +2,7 @@ import { Session } from '@supabase/supabase-js';
 import { useAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
 
-import { logoutAtom } from '@/utils/jotai';
+import { logoutAtom } from '@/utils/jotai/jotai';
 
 interface DropdownProps {
   onClose: () => void;

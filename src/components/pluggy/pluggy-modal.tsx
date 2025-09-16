@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { useEffect, useRef, useState } from 'react';
 import { PluggyConnectProps } from 'react-pluggy-connect';
 
-import { isPluggyModalOpenAtom } from '@/utils/jotai';
+import { isPluggyModalOpenAtom } from '@/utils/jotai/jotai';
 
 export const PluggyModal = ({ connectToken }: { connectToken: string }) => {
   // Importando dinamicamente o componente para evitar problemas com SSR (window undefined)

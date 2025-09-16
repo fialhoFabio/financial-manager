@@ -2,7 +2,7 @@
 
 import { useAtom } from 'jotai';
 
-import { togglePluggyModalAtom } from '@/utils/jotai';
+import { togglePluggyModalAtom } from '@/utils/jotai/jotai';
 
 export const PluggyButtonModal = () => {
   const [,togglePluggyModal] = useAtom(togglePluggyModalAtom);

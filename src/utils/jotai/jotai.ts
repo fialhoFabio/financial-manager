@@ -2,7 +2,7 @@ import { Session, User } from '@supabase/supabase-js';
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-import { logoutSupabase } from './supabase-client';
+import { logoutSupabase } from '@/utils/supabase/supabase-client';
 // import { atomWithImmer } from 'jotai-immer';
 
 export const investmentsAtom = atom<string[]>([]);
