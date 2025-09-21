@@ -5,18 +5,19 @@ import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 
 import '../styles.css';
-import { supabaseClient } from '../utils/supabase/supabase-client';
+import { getActiveUser } from '../utils/supabase/supabase-SERVER';
 
 type RootLayoutProps = { children: ReactNode };
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   const data = await getData();
-  const session = await supabaseClient.auth.getSession().then(({ data }) => data.session);
-  console.log('Session data in layout: ', session);
+  const { user } = await getActiveUser();
+
+  console.log('Layout user:', user); // Adjusted to log the cookie header
 
   return (
     <div className="font-['Nunito']">
-      <AuthGuard initialSession={session}>
+      <AuthGuard readOnlySSRLoadedActiveUser={user}>
         <meta name="description" content={data.description} />
         <link rel="icon" type="image/png" href={data.icon} />
         <Header />
@@ -40,6 +41,6 @@ const getData = async () => {
 
 export const getConfig = async () => {
   return {
-    render: 'static',
+    render: 'dynamic', // Isso deixa tudo dynamic, mas quebra o uso de cookies no layout, ele vao mudar o jeito que middlewares funcionam
   } as const;
 };

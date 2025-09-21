@@ -1,5 +1,6 @@
 import orcProvidePluggyConnectionToken from '@/utils/orquestration/providePluggyConnectionToken.js';
 
+import { PluggyButtonModal } from './pluggy-button-modal.js';
 import { PluggyModal } from './pluggy-modal.js';
 
 export const PluggyConnector = async () => {
@@ -9,5 +10,8 @@ export const PluggyConnector = async () => {
     return <div>Error obtaining Pluggy connection token.</div>;
   }
 
-  return <PluggyModal connectToken={accessToken} />;
+  return  <>
+    <PluggyButtonModal />
+    <PluggyModal connectToken={accessToken} />
+  </>;
 };
