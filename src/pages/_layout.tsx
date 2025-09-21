@@ -41,6 +41,6 @@ const getData = async () => {
 
 export const getConfig = async () => {
   return {
-    render: 'static',
+    render: 'dynamic', // Isso deixa tudo dynamic, mas quebra o uso de cookies no layout, ele vao mudar o jeito que middlewares funcionam
   } as const;
 };
