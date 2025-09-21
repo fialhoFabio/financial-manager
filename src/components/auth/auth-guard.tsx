@@ -1,40 +1,42 @@
 'use client';
 
 
-import type { Session } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js';
 import { useAtom } from 'jotai';
 // import { useHydrateAtoms } from 'jotai/utils';
+import { useHydrateAtoms } from 'jotai/utils';
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'waku';
 
-import { logoutAtom, sessionAtom } from '@/utils/jotai/jotai';
-import { supabaseClient } from '@/utils/supabase/supabase-client';
+import { getUserAtom, logoutAtom, sessionAtom, setUserAtom } from '@/utils/jotai/jotai';
+import { createClient } from '@/utils/supabase/supabase-client';
 
 
-
-export const AuthGuard = ({children}: {children: ReactNode, initialSession: Session | null}) => {
-  const [isHydrated, setIsHydrated] = useState(false);
-  const [session, setSession] = useAtom(sessionAtom);
-  const [, logout] = useAtom(logoutAtom);
+export const AuthGuard = ({children, readOnlySSRLoadedActiveUser}: {children: ReactNode, readOnlySSRLoadedActiveUser: User | null}) => {
   const { replace, path } = useRouter();
+  const [isHydrated, setIsHydrated] = useState(false);
+  useHydrateAtoms([[setUserAtom, readOnlySSRLoadedActiveUser]]);
+  const [user] = useAtom(getUserAtom);
+  const [, setSession] = useAtom(sessionAtom);
+  const [, logout] = useAtom(logoutAtom);
+
+  console.log('AuthGuard - SSR Loaded User:', readOnlySSRLoadedActiveUser);
 
   useEffect(() => {
-    const protectedPaths = ['/open-finance'];
-    if (!isHydrated) return;
-    if (protectedPaths.includes(path) && !session) {
+    const unsafeRoutes = ['/auth/otp', '/auth', '/'];
+    if (!user && !unsafeRoutes.includes(path)) {
       console.warn('No active session, redirecting to home.');
       replace('/');
     }
-    console.info('Current session: ', session);
-  }, [isHydrated, path, replace, session]);
+    if (user && unsafeRoutes.includes(path)) {
+      console.info('User is authenticated, redirecting to /open-finance');
+      replace('/open-finance');
+    }
+    setIsHydrated(true);
+  }, [user, replace, path]);
 
   useEffect(() => {
-    supabaseClient.auth.getSession().then(({ data: { session } }) => {
-      console.log('Initial session from supabase: ', session);
-      setSession(session);
-    });
-
-    const { data: authListener } = supabaseClient.auth.onAuthStateChange((event, session) => {
+    const { data: authListener } = createClient().auth.onAuthStateChange((event, session) => {
       console.info('Auth event: ', event);
       if (event === 'SIGNED_OUT') {
         logout();
@@ -51,7 +53,6 @@ export const AuthGuard = ({children}: {children: ReactNode, initialSession: Sess
         setSession(session);
       } else if (event === 'INITIAL_SESSION') {
         setSession(session);
-        setIsHydrated(true);
       } else {
         setSession(session);
       }
@@ -62,5 +63,9 @@ export const AuthGuard = ({children}: {children: ReactNode, initialSession: Sess
     };
   }, [logout, replace, setSession]);
 
+  if (!isHydrated) {
+    return null; // or a loading spinner, or some placeholder
+  }
+  console.log('AuthGuard rendering with user:', user);
   return <div>{children}</div>;
 };

@@ -1,15 +1,14 @@
-import { createClient } from '@supabase/supabase-js';
+// import { createClient } from '@supabase/supabase-js';
+import { createBrowserClient } from '@supabase/ssr';
 
 import { Database } from '@/types/database.types';
 
-const supabaseUrl = import.meta.env.WAKU_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.WAKU_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+export function createClient() {
+  return createBrowserClient<Database>(
+    import.meta.env.WAKU_PUBLIC_SUPABASE_URL,
+    import.meta.env.WAKU_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  );
 }
-
-export const supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
 export const logoutSupabase = async () => {
   const session = await getSessionData();
@@ -17,7 +16,7 @@ export const logoutSupabase = async () => {
     console.log('No active session found');
     return;
   }
-  const { error } = await supabaseClient.auth.signOut();
+  const { error } = await createClient().auth.signOut();
   if (error) {
     console.error('Error signing out:', error.message);
   } else {
@@ -26,7 +25,7 @@ export const logoutSupabase = async () => {
 };
 
 export const getSessionData = async () => {
-  const { data, error } = await supabaseClient.auth.getSession();
+  const { data, error } = await createClient().auth.getSession();
   if (error) {
     console.error('Error fetching session:', error.message);
     return null;

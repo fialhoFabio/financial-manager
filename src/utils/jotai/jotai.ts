@@ -24,7 +24,15 @@ export const pluggyCachedApiKeyAtom = atomWithStorage<string>('UUID-OF-API-KEY',
 // Supabase Auth State Management
 
 export const sessionAtom = atom<Session | null>(null);
-export const getUserAtom = atom<User | null>((get) => get(sessionAtom)?.user || null);
+export const getUserAtom = atom<User | null>(
+  (get) => get(sessionAtom)?.user || null
+);
+export const setUserAtom = atom(null, (get, set, user: User | null) => {
+  const currentSession = get(sessionAtom);
+  if (!user) set(sessionAtom, null);
+  else if (currentSession) set(sessionAtom, { ...currentSession, user });
+  else set(sessionAtom, { user } as Session);
+});
 export const logoutAtom = atom(null, (_, set) => {
   set(sessionAtom, null);
   logoutSupabase();
