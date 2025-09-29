@@ -20,6 +20,7 @@ export const togglePluggyModalAtom = atom(null, (get, set) => {
   set(isPluggyModalOpenAtom, !isOpen);
 });
 export const pluggyCachedApiKeyAtom = atomWithStorage<string>('UUID-OF-API-KEY', '');
+export const pluggyItemsAtom = atom<string[]>([]);
 
 // Supabase Auth State Management
 

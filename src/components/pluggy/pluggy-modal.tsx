@@ -4,7 +4,10 @@ import { useAtom } from 'jotai';
 import { useEffect, useRef, useState } from 'react';
 import { PluggyConnectProps } from 'react-pluggy-connect';
 
+import type { components } from '@/types/pluggy-fetch';
 import { isPluggyModalOpenAtom } from '@/utils/jotai/jotai';
+import { saveItemId } from '@/utils/supabase/supabase-client';
+
 
 export const PluggyModal = ({ connectToken }: { connectToken: string }) => {
   // Importando dinamicamente o componente para evitar problemas com SSR (window undefined)
@@ -17,7 +20,8 @@ export const PluggyModal = ({ connectToken }: { connectToken: string }) => {
     setIsPluggyModalOpen(false);
   };
 
-  const handleSuccess = () => {
+  const handleSuccess = async ({ item }: { item: components['schemas']['Item'] }) => {
+    await saveItemId(item.id);
     setIsPluggyModalOpen(false);
   };
 

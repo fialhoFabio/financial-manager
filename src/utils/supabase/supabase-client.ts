@@ -32,3 +32,31 @@ export const getSessionData = async () => {
   }
   return data.session;
 };
+
+export const saveItemId = async (itemId: string) => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('finance_item')
+    .insert([{ item_id: itemId }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error saving item ID:', error.message);
+    return null;
+  }
+  return data;
+};
+
+export const getItems = async () => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('finance_item')
+    .select('*');
+
+  if (error) {
+    console.error('Error fetching items:', error.message);
+    return [];
+  }
+  return data;
+};

@@ -13,7 +13,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const data = await getData();
   const { user } = await getActiveUser();
 
-  console.log('Layout user:', user); // Adjusted to log the cookie header
+  // console.log('Layout user:', user); // Adjusted to log the cookie header
 
   return (
     <div className="font-['Nunito']">

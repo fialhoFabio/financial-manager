@@ -1,12 +1,11 @@
 'use server';
 
 import 'server-only';
-import { fetchPluggyConnectToken } from '../pluggy/pluggy-SERVER';
 import { getSecretOnSupabase } from '../supabase/vault-SERVER';
 
 import orcSyncPluggyApiKeyVault from './syncPluggyApiKeyVault';
 
-export default async function orcProvidePluggyConnectionToken(isRetry = false): Promise<string> {
+export default async function orcProvidePluggyApiKey<R>(cb: (apiKey: string) => R, isRetry = false): Promise<R> {
     // Get the stored API key from Supabase
     const apiKeyData = await getSecretOnSupabase('pluggy_api_key');
 
@@ -15,9 +14,9 @@ export default async function orcProvidePluggyConnectionToken(isRetry = false): 
       const { decrypted_secret: apiKey, updated_at: lastUpdated } = apiKeyData;
       
       if (isApiKeyValid(apiKey, lastUpdated)) {
-        const response = await fetchPluggyConnectToken(apiKey);
-        if (response?.accessToken) return response.accessToken;
-        console.warn('Failed to generate connect token with existing API key');
+        const response = await cb(apiKey);
+        if (response) return response;
+        console.warn('Failed to run callback with existing API key');
       }
     }
 
@@ -29,7 +28,7 @@ export default async function orcProvidePluggyConnectionToken(isRetry = false): 
     // Refresh the API key and try again
     console.info('Refreshing Pluggy API key...');
     await orcSyncPluggyApiKeyVault(apiKeyData?.id);
-    return await orcProvidePluggyConnectionToken(true);
+    return await orcProvidePluggyApiKey(cb, true);
 }
 
 const isApiKeyValid = (key: string | null, updated_at: string | null): boolean => {
