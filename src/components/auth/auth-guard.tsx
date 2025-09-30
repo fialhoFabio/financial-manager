@@ -20,8 +20,6 @@ export const AuthGuard = ({children, readOnlySSRLoadedActiveUser}: {children: Re
   const [, setSession] = useAtom(sessionAtom);
   const [, logout] = useAtom(logoutAtom);
 
-  console.log('AuthGuard - SSR Loaded User:', readOnlySSRLoadedActiveUser);
-
   useEffect(() => {
     const unsafeRoutes = ['/auth/otp', '/auth', '/'];
     if (!user && !unsafeRoutes.includes(path)) {
@@ -29,7 +27,7 @@ export const AuthGuard = ({children, readOnlySSRLoadedActiveUser}: {children: Re
       replace('/');
     }
     if (user && unsafeRoutes.includes(path)) {
-      console.info('User is authenticated, redirecting to /open-finance');
+      console.warn('User is authenticated, redirecting to /open-finance');
       replace('/open-finance');
     }
     setIsHydrated(true);
@@ -37,7 +35,7 @@ export const AuthGuard = ({children, readOnlySSRLoadedActiveUser}: {children: Re
 
   useEffect(() => {
     const { data: authListener } = createClient().auth.onAuthStateChange((event, session) => {
-      console.info('Auth event: ', event);
+      // console.info('Auth event: ', event);
       if (event === 'SIGNED_OUT') {
         logout();
         replace('/');
@@ -66,6 +64,6 @@ export const AuthGuard = ({children, readOnlySSRLoadedActiveUser}: {children: Re
   if (!isHydrated) {
     return null; // or a loading spinner, or some placeholder
   }
-  console.log('AuthGuard rendering with user:', user);
+
   return <div>{children}</div>;
 };

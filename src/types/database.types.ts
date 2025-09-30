@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      finance_item: {
+        Row: {
+          created_at: string
+          id: number
+          item_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          item_id: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          item_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       Teste: {
         Row: {
           created_at: string
